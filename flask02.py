@@ -18,16 +18,16 @@ def index():
 
 a_user = {'name':'Androw Dokman','email':'adokman@uncc.edu'}
 
-@app.route('/notes')
-def get_notes():
+
+
+
+@app.route('/notes/<note_id>')
+def get_notes(note_id):
 
     notes = {1: {'title':'First note', 'text': 'This is my first note', 'date': '10-1-2020'},
      2: {'title':'Second note', 'text': 'This is my second note', 'date': '10-2-2020'}
      }
-    return render_template('notes.html', notes =notes)
-
-
-      
+    return render_template('note.html', note=notes[int(note_id)])    
 
 
 
