@@ -8,6 +8,7 @@
     <title>UNCC Notes App - View your Notes</title>
     <!-- styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
 </head>
 
 <body>
@@ -19,7 +20,7 @@
         </tr>
         {% for key, value in notes.items() %}
         <tr>
-            <td>{{ value.title }}</td>
+            <td><a href="notes/{{key}}">{{ value.title }}</a></td>
             <td>{{ value.date }}</td>
         </tr>
         {% endfor %}
