@@ -4,7 +4,8 @@
 import os                 # os is used to get environment variables IP & PORT
 from flask import Flask, render_template   # Flask is the web app that we will customize
 from flask import render_template
-
+from flask import request
+from flask import Flask, redirect, url_for, render_template, request
 
 app = Flask(__name__)     # create an app
 
@@ -27,9 +28,18 @@ def get_notes():
      }
     return render_template('notes.html', notes =notes)
 
+@app.route('/notes/new', methods=['GET', 'POST'])
+def new_note() :
+    a_user = {'name':'Androw Dokman','email':'adokman@uncc.edu'}
+    print('request method is',request.method)
+    if request.method == 'POST':
+        request_data = request.form
+        return f"data: {request_data} !"
+    else:
+        return render_template('new.html', user=a_user)
 
 
-
+    return render_template('new.html', user =a_user)
 
 
 app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True)
