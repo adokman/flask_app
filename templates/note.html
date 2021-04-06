@@ -8,23 +8,32 @@
     <title>UNCC Notes App - View your Note</title>
     <!-- styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+
+
+
 </head>
+<nav>
+    <a href="{{ url_for('index') }}"> Home</a> ||
 
-<body>
-    <h1>Note detials</h1>
+    <nav>
 
-    <table>
-        <tr>
-            <th>Title</th>
-            <th>Text</th>
-            <th>Date</th>
-        </tr>
-        <tr>
-            <td>{{ note.title }}</td>
-            <td>{{ note.text }}</td>
-            <td>{{ note.date }}</td>
-        </tr>
-    </table>
-</body>
+        <body>
+            <h1>Welcome Androw Dokman to the 49er Notes App!</h1>
+            <h1>Note detials</h1>
+
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Text</th>
+                    <th>Date</th>
+                </tr>
+                <tr>
+                    <td>{{ note.title }}</td>
+                    <td>{{ note.text }}</td>
+                    <td>{{ note.date }}</td>
+                </tr>
+            </table>
+        </body>
 
 </html>
