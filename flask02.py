@@ -18,6 +18,9 @@ def index():
 
 a_user = {'name':'Androw Dokman','email':'adokman@uncc.edu'}
 
+
+
+
 @app.route('/notes')
 def get_notes():
 
@@ -26,9 +29,6 @@ def get_notes():
      3: {'title':'Third note', 'text': 'This is my third note', 'date': '10-3-2020'}
      }
     return render_template('notes.html', notes =notes)
-
-
-
 
 
 
