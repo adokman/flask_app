@@ -7,6 +7,8 @@ from flask import render_template
 from flask import request
 from flask import Flask, redirect, url_for, render_template, request
 from database import db
+from models import Note as Note
+from models import User as User
 
 app = Flask(__name__)     # create an app
 
@@ -28,18 +30,28 @@ notes = {1: {'title':'First note', 'text': 'This is my first note', 'date': '10-
 @app.route('/')
 @app.route('/index')
 def index():
+    # get user from database
+
  return render_template('index.html', user =a_user)
 
-a_user = {'name':'Androw Dokman','email':'adokman@uncc.edu'}
+a_user = db.session.query(User).filter_by(email='adokman@uncc.edu')
+
 
 @app.route('/notes')
 def get_notes():
-    return render_template('notes.html', notes =notes)
+ return render_template('notes.html', notes=my_notes, user=a_user)
+# retrieve user from data base
+a_user =db.session.query(User).filter_by(email='adokman@uncce.edu')
+# retive notes from database
+my_notes = db.session.query(Note).all()
 
+    
 @app.route('/notes/<note_id>')
 def get_note(note_id):
     
-      a_user = {'name': 'androw dokman', 'email': 'adokman@uncc.edu'} 
+      a_user = db.session.query(User).filter_by(email='adokman@uncc.edu')
+      my_notes = db.session.query(Note).filter_by(id=note_id)
+      
       return render_template('note.html', note=notes[int(note_id)], user = a_user)
 
 
@@ -48,7 +60,7 @@ def get_note(note_id):
 
 @app.route('/notes/new', methods=['GET', 'POST'])
 def new_note() :
-    a_user = {'name':'Androw Dokman','email':'adokman@uncc.edu'}
+    
     print('request method is', request.method)
     if request.method == 'POST':
         title = request.form['title']
@@ -56,11 +68,12 @@ def new_note() :
         from datetime import date
         today = date.today()
         today = today.strftime("%m-%d-%y")
-        id = len(notes)+1
-        notes[id] = {'title': title, 'text': text, 'date': today}
-        return redirect(url_for('get_notes',name = a_user))
+        new_record = Note(title, text, today)
+        db.session.add(new_record)
+        db.session.commit()
+        return redirect(url_for('get_notes'))
     else:
-
+        a_user = db.session.query(User).filter_by(email='adokman@uncc.edu')
 
         return render_template('new.html', user =a_user)
 
